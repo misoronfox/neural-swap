@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="LogicSlot" format=3 uid="uid://te2lt6jl8se2"]
+[gd_resource type="Resource" script_class="BasicMovement" format=3 uid="uid://te2lt6jl8se2"]
 
-[ext_resource type="Script" uid="uid://bcl6q1vex7ykx" path="res://Scripts/LogicSlot.gd" id="1_4mxqe"]
+[ext_resource type="Script" uid="uid://bpsrve41wbirx" path="res://Scripts/Logics/BasicMovement.gd" id="1_4mxqe"]
+[ext_resource type="Texture2D" uid="uid://chn2phkj6oc4e" path="res://addons/plenticons/icons/64x-hidpi/2d/double-chevron-right-gray.png" id="2_ujjpm"]
 
 [resource]
 script = ExtResource("1_4mxqe")
+jump_force = -10.0
 name = "Heavy walk"
-type = 1
-jump_force = -200.0
-metadata/_custom_type_script = "uid://bcl6q1vex7ykx"
+texture = ExtResource("2_ujjpm")
+metadata/_custom_type_script = "uid://bpsrve41wbirx"

@@ -27,69 +27,43 @@ func _ready():
 		modulate = Color(1.2, 1.2, 0.8) # Un ligero brillo amarillento
 
 func _physics_process(delta):
-	# Aplicar gravedad si no es estático
-	if not is_static:
-		
-		if not is_on_floor():
-			velocity.y += gravity * delta
-		
-		# Lógica de movimiento automática (muy simple para empezar)
-		if not is_possessed: # Si el virus no está, se mueve por su cuenta
-			auto_move()
-		
-		move_and_slide()
-		
-
-func auto_move():
-	# Si tiene un slot de movimiento, camina
-	var has_movement = false
-	for slot in brain_slots:
-		if slot and slot.type == LogicSlot.Type.MOVEMENT:
-			has_movement = true
-			break
+	if is_static: return
 	
-	if has_movement:
-		velocity.x = direction * speed
-		# Girar si choca con pared o ve vacío (usando RayCast2D)
-		if is_on_wall():
-			direction *= -1
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+	# Aplicar gravedad
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	
+	# El virus no controla el movimiento, la IA lo hace a través de los slots
+	# El movimiento ocurre cada frame para que sea fluido
+	execute_slot_by_type(LogicSlot.Type.MOVEMENT)
+	
+	move_and_slide()
+	update_visuals()
 
 func _on_ai_tick():
 	if is_static: return
 	
-	# Ejecutar una acción aleatoria de sus slots
-	var valid_slots = brain_slots.filter(func(s): return s != null)
-	if valid_slots.size() > 0:
-		var random_slot = valid_slots.pick_random()
-		execute_action(random_slot)
+	# La lógica de comportamiento y combate puede correr en un timer
+	# para no saturar y dar "ritmo" a la batalla
+	execute_slot_by_type(LogicSlot.Type.BEHAVIOR)
+	execute_slot_by_type(LogicSlot.Type.COMBAT)
 
-func execute_action(slot: LogicSlot):
-	match slot.type:
-		LogicSlot.Type.ATTACK:
-			# --- FRONTEND (Visual) ---
-			if _animated_sprite:
-				_animated_sprite.play("attack")
-			
-			# --- BACKEND (Lógica de Daño) ---
-			if attack_ray and attack_ray.is_colliding():
-				var target = attack_ray.get_collider() # Obtenemos qué chocó
-				
-				# Verificamos si lo que chocó es una Entidad y tiene vida
-				if target.has_method("take_damage"):
-					print(name, " golpeó a ", target.name)
-					target.take_damage(slot.damage)
-		LogicSlot.Type.MOVEMENT:
-			if is_on_floor():
-				velocity.y = slot.jump_force
+func execute_slot_by_type(type: LogicSlot.Type):
+	for slot in brain_slots:
+		if slot and slot.type == type:
+			slot.execute(self)
 
 func take_damage(amount):
 	health -= amount
 	# Efecto visual de flash rojo (Hack n' Slash style)
 	var tween = create_tween()
-	tween.tween_property($Sprite2D, "modulate", Color.RED, 0.1)
-	tween.tween_property($Sprite2D, "modulate", Color.WHITE, 0.1)
+	# Intentar obtener Sprite2D o AnimatedSprite2D para el flash
+	var visual = find_child("Sprite2D")
+	if not visual: visual = _animated_sprite
+	
+	if visual:
+		tween.tween_property(visual, "modulate", Color.RED, 0.1)
+		tween.tween_property(visual, "modulate", Color.WHITE, 0.1)
 	
 	if health <= 0:
 		die()

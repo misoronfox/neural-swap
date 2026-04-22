@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="LogicSlot" format=3 uid="uid://bl3jx0i4ji38a"]
+[gd_resource type="Resource" script_class="BasicAttack" format=3 uid="uid://cj386x7ppfq0r"]
 
-[ext_resource type="Script" uid="uid://bcl6q1vex7ykx" path="res://Scripts/LogicSlot.gd" id="1_isttf"]
+[ext_resource type="Script" uid="uid://bvtyio2kkiehm" path="res://Scripts/Logics/BasicAttack.gd" id="1_isttf"]
+[ext_resource type="Texture2D" uid="uid://bkv88ag671mkn" path="res://addons/plenticons/icons/64x-hidpi/2d/spark-hollow-gray.png" id="2_pmqkk"]
 
 [resource]
 script = ExtResource("1_isttf")
 name = "HeavyAttack"
-cooldown = 1.5
-damage = 25
-metadata/_custom_type_script = "uid://bcl6q1vex7ykx"
+texture = ExtResource("2_pmqkk")
+metadata/_custom_type_script = "uid://bvtyio2kkiehm"
