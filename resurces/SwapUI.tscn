@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cgwyw6dllwyvv"]
+
+[ext_resource type="Script" uid="uid://c7tjoa6sk6uox" path="res://Scripts/SwapUI.gd" id="1_o6gn5"]
+
+[node name="SwapUI" type="Control" unique_id=1356589761]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -53.0
+offset_right = -102.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o6gn5")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=145910443]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 146.0
+offset_right = 202.0
+offset_bottom = 172.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1573689818]
+layout_mode = 2
+
+[node name="TargetSlots" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=60399053]
+layout_mode = 2
+
+[node name="TargetSlot0" type="Button" parent="PanelContainer/VBoxContainer/TargetSlots" unique_id=1014713346]
+layout_mode = 2
+
+[node name="TargetSlot1" type="Button" parent="PanelContainer/VBoxContainer/TargetSlots" unique_id=1520129546]
+layout_mode = 2
+
+[node name="TargetSlot2" type="Button" parent="PanelContainer/VBoxContainer/TargetSlots" unique_id=2135692669]
+layout_mode = 2
+
+[node name="OriginSlots" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1005990884]
+layout_mode = 2
+
+[node name="OriginSlot0" type="Button" parent="PanelContainer/VBoxContainer/OriginSlots" unique_id=813618626]
+layout_mode = 2
+
+[node name="OriginSlot1" type="Button" parent="PanelContainer/VBoxContainer/OriginSlots" unique_id=2081950638]
+layout_mode = 2
+
+[node name="OriginSlot2" type="Button" parent="PanelContainer/VBoxContainer/OriginSlots" unique_id=441263212]
+layout_mode = 2

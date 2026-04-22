@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fb613sh1at51"]
 
 [ext_resource type="PackedScene" uid="uid://bom4t4fhmmbre" path="res://scenes/knight_vip.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://cgwyw6dllwyvv" path="res://resurces/SwapUI.tscn" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://kgrnf2yu3v3a" path="res://scenes/basicEnemy.tscn" id="2_0wfyh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0wfyh"]
@@ -8,6 +9,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 
 [node name="Node2D" type="Node2D" unique_id=378422440]
+
+[node name="SwapUI" parent="." unique_id=1356589761 instance=ExtResource("1_sugp2")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="KnightVIP" parent="." unique_id=1517053745 instance=ExtResource("1_o5qli")]
 position = Vector2(39, 222)
@@ -25,3 +37,4 @@ shape = SubResource("RectangleShape2D_o5qli")
 
 [node name="basicEnemy" parent="." unique_id=1902984871 instance=ExtResource("2_0wfyh")]
 position = Vector2(175, 235)
+speed = 50.0
