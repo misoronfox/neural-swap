@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dw6hgyg17amiq"]
+
+[ext_resource type="Script" uid="uid://dyhecw576fd1i" path="res://Scripts/Entity.gd" id="1_iiwub"]
+
+[node name="Entity" type="CharacterBody2D" unique_id=1902984871]
+input_pickable = true
+script = ExtResource("1_iiwub")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=108656273]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1101114256]
+
+[node name="ActionTimer" type="Timer" parent="." unique_id=641884668]
+
+[node name="Label" type="Label" parent="." unique_id=1609194725]
+offset_left = -18.0
+offset_top = -24.0
+offset_right = 22.0
+offset_bottom = -1.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=310903211]
+target_position = Vector2(36, 25)
+
+[connection signal="input_event" from="." to="." method="_input_event"]

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LogicSlot" format=3 uid="uid://bl3jx0i4ji38a"]
+
+[ext_resource type="Script" uid="uid://bcl6q1vex7ykx" path="res://Scripts/LogicSlot.gd" id="1_isttf"]
+
+[resource]
+script = ExtResource("1_isttf")
+name = "HeavyAttack"
+cooldown = 1.5
+damage = 25
+metadata/_custom_type_script = "uid://bcl6q1vex7ykx"

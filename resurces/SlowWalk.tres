@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LogicSlot" format=3 uid="uid://te2lt6jl8se2"]
+
+[ext_resource type="Script" uid="uid://bcl6q1vex7ykx" path="res://Scripts/LogicSlot.gd" id="1_4mxqe"]
+
+[resource]
+script = ExtResource("1_4mxqe")
+name = "Heavy walk"
+type = 1
+jump_force = -200.0
+metadata/_custom_type_script = "uid://bcl6q1vex7ykx"
