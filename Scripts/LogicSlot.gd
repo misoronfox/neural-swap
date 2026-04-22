@@ -1,11 +1,13 @@
 extends Resource
 class_name LogicSlot
 
-enum Type { ATTACK, MOVEMENT, PASSIVE, UTILITY }
+enum Type { COMBAT, MOVEMENT, BEHAVIOR }
 
 @export var name: String = "Lógica Vacía"
-@export var type: Type = Type.ATTACK
-@export var cooldown: float = 1.0
-@export var damage: int = 10
-@export var jump_force: float = -400.0 # Útil para lógica de movimiento
+@export var type: Type = Type.COMBAT
 @export var texture: Texture2D # Icono para la UI
+
+## Esta función será sobrescrita por los scripts de lógica específicos.
+## 'actor' es la Entidad que está ejecutando esta lógica.
+func execute(_actor: CharacterBody2D):
+	pass
