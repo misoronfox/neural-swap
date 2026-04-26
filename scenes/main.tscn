@@ -9,17 +9,20 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
 
 [node name="Node2D" type="Node2D" unique_id=378422440]
+scale = Vector2(2, 2)
 
-[node name="SwapUI" parent="." unique_id=1356589761 instance=ExtResource("1_sugp2")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=548138541]
+
+[node name="InterfazFondo" type="CenterContainer" parent="CanvasLayer" unique_id=1530294540]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SwapUI" parent="CanvasLayer/InterfazFondo" unique_id=1356589761 instance=ExtResource("1_sugp2")]
+layout_mode = 2
 
 [node name="KnightVIP" parent="." unique_id=1517053745 instance=ExtResource("1_o5qli")]
 position = Vector2(39, 222)

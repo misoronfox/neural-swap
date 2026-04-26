@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AggressiveBehavior" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Logics/AggressiveBehavior.gd" id="1_aggressive"]
+[ext_resource type="Texture2D" uid="uid://dnk1qhxkufr3t" path="res://addons/plenticons/icons/64x-hidpi/2d/cross-red.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_aggressive")
+name = "Aggressive"
+type = 2
+texture = ExtResource("2_icon")
+cooldown = 0.5

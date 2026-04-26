@@ -7,18 +7,25 @@ class_name Entity
 @export var health: float = 100.0
 @export var speed: float = 150.0
 
-# El "Cerebro": Un array de 3 slots de lógica
-@export var brain_slots: Array[LogicSlot] = [null, null, null]
+# El "Cerebro": Tres slots definidos por variables
+@export var combat_slot: LogicSlot
+@export var behavior_slot: LogicSlot
+@export var movement_slot: LogicSlot
 
 var is_possessed: bool = false # ¿Está el virus aquí?
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1 # 1 derecha, -1 izquierda
+
+# Estado para la orquestación de la IA
+var move_direction: Vector2 = Vector2.ZERO
+var current_target: Entity = null
 
 @onready var attack_ray = $AttackRay 
 @onready var action_timer = $ActionTimer
 @onready var _animated_sprite: AnimatedSprite2D = find_child("AnimatedSprite2D") as AnimatedSprite2D
 func _ready():
 	if not is_static:
+		print("[%s] No es estatica, conectando timer" % [name])
 		action_timer.start(1.0) # La IA "piensa" cada segundo
 		action_timer.timeout.connect(_on_ai_tick)
 		
@@ -33,9 +40,10 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	
-	# El virus no controla el movimiento, la IA lo hace a través de los slots
-	# El movimiento ocurre cada frame para que sea fluido
-	execute_slot_by_type(LogicSlot.Type.MOVEMENT)
+	# El movimiento ocurre cada frame para que sea fluido, 
+	# pero el patrón lo dicta el slot de movimiento usando move_direction
+	if movement_slot:
+		movement_slot.execute(self)
 	
 	move_and_slide()
 	update_visuals()
@@ -43,15 +51,14 @@ func _physics_process(delta):
 func _on_ai_tick():
 	if is_static: return
 	
-	# La lógica de comportamiento y combate puede correr en un timer
-	# para no saturar y dar "ritmo" a la batalla
-	execute_slot_by_type(LogicSlot.Type.BEHAVIOR)
-	execute_slot_by_type(LogicSlot.Type.COMBAT)
-
-func execute_slot_by_type(type: LogicSlot.Type):
-	for slot in brain_slots:
-		if slot and slot.type == type:
-			slot.execute(self)
+	# El comportamiento (cerebro) decide qué hacer:
+	if behavior_slot and behavior_slot.can_execute():
+		var status = "POSEIDO" if is_possessed else "Libre"
+		print("[%s][%s] Pensando... (Behavior: %s, Target: %s)" % [name, status, behavior_slot.name, current_target.name if current_target else "Ninguno"])
+		behavior_slot.execute(self)
+		behavior_slot.mark_executed()
+	elif not behavior_slot:
+		print("[%s] Advertencia: No tengo cerebro (behavior_slot vacio)" % name)
 
 func take_damage(amount):
 	health -= amount

@@ -8,14 +8,17 @@ func execute(actor: CharacterBody2D):
 	if not entity: return
 	
 	# --- Visuals ---
-	# We use the internal reference from the entity
 	if entity._animated_sprite:
 		entity._animated_sprite.play("attack")
 	
 	# --- Logic ---
-	# We check the RayCast already set up in the entity
-	if entity.attack_ray and entity.attack_ray.is_colliding():
-		var target = entity.attack_ray.get_collider()
-		if target.has_method("take_damage"):
-			print(entity.name, " (BasicAttack) hit ", target.name, " for ", damage)
-			target.take_damage(damage)
+	if entity.attack_ray:
+		if entity.attack_ray.is_colliding():
+			var target = entity.attack_ray.get_collider()
+			if target.has_method("take_damage"):
+				print("[%s] ¡GOLPE! %s impacta a %s con %d de daño." % [entity.name, name, target.name, damage])
+				target.take_damage(damage)
+			else:
+				print("[%s] Ataque bloqueado o contra objeto no danable (%s)." % [entity.name, target.name])
+		else:
+			print("[%s] Ataque al aire (sin colision)." % entity.name)

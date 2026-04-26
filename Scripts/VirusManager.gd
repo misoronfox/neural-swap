@@ -27,39 +27,20 @@ func possess(new_host: Entity):
 func perform_swap_by_type(type: LogicSlot.Type):
 	if not previous_host or not current_host: return
 	
-	# Aseguramos que ambos tengan arrays de tamaño 3 para evitar errores de índice
-	_ensure_brain_size(previous_host)
-	_ensure_brain_size(current_host)
-	
-	# Buscamos los índices donde cada entidad tiene ese tipo de lógica
-	var idx_prev = _get_index_for_type(previous_host, type)
-	var idx_curr = _get_index_for_type(current_host, type)
-	
-	# Intercambiamos los recursos
-	var temp_slot = previous_host.brain_slots[idx_prev]
-	previous_host.brain_slots[idx_prev] = current_host.brain_slots[idx_curr]
-	current_host.brain_slots[idx_curr] = temp_slot
+	# Intercambiamos los recursos según el tipo
+	match type:
+		LogicSlot.Type.COMBAT:
+			var temp = previous_host.combat_slot
+			previous_host.combat_slot = current_host.combat_slot
+			current_host.combat_slot = temp
+		LogicSlot.Type.BEHAVIOR:
+			var temp = previous_host.behavior_slot
+			previous_host.behavior_slot = current_host.behavior_slot
+			current_host.behavior_slot = temp
+		LogicSlot.Type.MOVEMENT:
+			var temp = previous_host.movement_slot
+			previous_host.movement_slot = current_host.movement_slot
+			current_host.movement_slot = temp
 	
 	print("¡SWAP por TIPO (", type, ")! entre ", previous_host.name, " y ", current_host.name)
 	hosts_updated.emit(previous_host, current_host)
-
-func _ensure_brain_size(entity: Entity):
-	while entity.brain_slots.size() < 3:
-		entity.brain_slots.append(null)
-
-func _get_index_for_type(entity: Entity, type: LogicSlot.Type) -> int:
-	# 1. Intentar encontrar un slot existente de ese tipo
-	for i in range(entity.brain_slots.size()):
-		var slot = entity.brain_slots[i]
-		if slot and slot.type == type:
-			return i
-	
-	# 2. Si no hay ninguno, usar un índice por defecto según el tipo
-	var default_idx = 0
-	match type:
-		LogicSlot.Type.COMBAT: default_idx = 0
-		LogicSlot.Type.BEHAVIOR: default_idx = 1
-		LogicSlot.Type.MOVEMENT: default_idx = 2
-	
-	# Aseguramos que el índice por defecto no se pase del tamaño actual (aunque _ensure_brain_size ya ayuda)
-	return clampi(default_idx, 0, entity.brain_slots.size() - 1)

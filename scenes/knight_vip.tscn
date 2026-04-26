@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bcl6q1vex7ykx" path="res://Scripts/LogicSlot.gd" id="3_ogj2g"]
 [ext_resource type="Resource" uid="uid://te2lt6jl8se2" path="res://resurces/SlowWalk.tres" id="4_1rh3m"]
 [ext_resource type="Resource" uid="uid://dyt1ry44sd0nb" path="res://resurces/WeakAttack.tres" id="5_mhkly"]
+[ext_resource type="Resource" path="res://resurces/CowardlyBehavior.tres" id="6_coward"]
 [ext_resource type="Texture2D" uid="uid://bb18ec5uv5r7k" path="res://Sprites/Knight 2D Pixel Art/Sprites/without_outline/IDLE.png" id="8_60tt1"]
 [ext_resource type="Texture2D" uid="uid://f08g1gjniqs7" path="res://Sprites/Knight 2D Pixel Art/Sprites/without_outline/WALK.png" id="10_d752t"]
 [ext_resource type="Texture2D" uid="uid://vyq668foixrt" path="res://Sprites/Knight 2D Pixel Art/Sprites/without_outline/ATTACK 1.png" id="11_x1vwb"]
@@ -183,7 +184,9 @@ script = ExtResource("2_tt52k")
 is_vip = true
 health = 200.0
 speed = 100.0
-brain_slots = Array[ExtResource("3_ogj2g")]([ExtResource("4_1rh3m"), ExtResource("5_mhkly"), null])
+combat_slot = ExtResource("5_mhkly")
+behavior_slot = ExtResource("6_coward")
+movement_slot = ExtResource("4_1rh3m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="0" unique_id=1990547397]
 

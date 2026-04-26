@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CowardlyBehavior" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Logics/CowardlyBehavior.gd" id="1_coward"]
+[ext_resource type="Texture2D" uid="uid://c2owi3ndsvd82" path="res://addons/plenticons/icons/64x-hidpi/2d/circle-blue.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_coward")
+name = "Cowardly"
+type = 2
+texture = ExtResource("2_icon")
+cooldown = 0.5

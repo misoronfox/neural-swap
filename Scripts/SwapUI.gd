@@ -37,9 +37,10 @@ func update_ui(previous: Entity, current: Entity):
 
 func _find_slot_of_type(entity: Entity, type: LogicSlot.Type) -> LogicSlot:
 	if not entity: return null
-	for slot in entity.brain_slots:
-		if slot and slot.type == type:
-			return slot
+	match type:
+		LogicSlot.Type.COMBAT: return entity.combat_slot
+		LogicSlot.Type.BEHAVIOR: return entity.behavior_slot
+		LogicSlot.Type.MOVEMENT: return entity.movement_slot
 	return null
 
 func _set_slot_info(node: Node, slot: LogicSlot):
